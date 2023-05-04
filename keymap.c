@@ -27,7 +27,8 @@ enum unicode_names {
     UE,
     UEG,
     SZ,
-    EUR
+    EUR,
+    NDH
 };
 
 const uint32_t unicode_map[] PROGMEM = {
@@ -39,6 +40,7 @@ const uint32_t unicode_map[] PROGMEM = {
     [UEG] = 0x00DC,  // Ü
     [SZ]  = 0x00DF,  // ß
     [EUR] = 0x20AC,  // €
+    [NDH] = 0x2013,  // –
 };
 
 const uint16_t PROGMEM test_combo1[] = {KC_J, KC_K, COMBO_END};
@@ -81,7 +83,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|  MUTE |    |       |------+------+------+------+------+------|
  * |LShift|   Y  |   X  |   C  |   V  |   B  |-------|    |-------|   N  |   M  |   ,  |   .  |   -  | Bspc |
  * `-----------------------------------------/       /     \      \-----------------------------------------'
- *            | LGUI | LAlt | LCTR |LOWER | /Enter  /       \Space \  |RAISE | RCTR | RAlt | RGUI |
+ *            | LGUI |   "  |   ?  |LOWER | /Enter  /       \Space \  |RAISE | LCTR | LAlt | LGUI |
  *            |      |      |      |      |/       /         \      \ |      |      |      |      |
  *            `----------------------------------'           '------''---------------------------'
  */
@@ -90,8 +92,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_GRV,   LSFT(KC_QUOT),   KC_SLSH,    LSFT(KC_SLSH),    KC_QUOT,    X(EUR),                      KC_6,    KC_7,    KC_8,    KC_9,    KC_0,  X(SZ),
   KC_ESC,   KC_Q,   KC_W,    KC_E,    KC_R,    KC_T,                      KC_Z,    KC_U,    KC_I,    KC_O, KC_P,  XP(UE, UEG),
   LCTL(KC_9),   KC_A,   KC_S,    KC_D,    KC_F,    KC_G,                      KC_H,    KC_J,    KC_K,    KC_L,    XP(OE, OEG),  XP(AE, AEG),
-  KC_LSFT,  KC_Y,   KC_X,    KC_C,    KC_V,    KC_B, KC_MUTE,      XXXXXXX,KC_N,    KC_M, KC_COMM,  KC_DOT, KC_MINS,  KC_BSPC,
-                 KC_LGUI,KC_LALT,KC_LCTL,MO(_LOWER), KC_ENT,        KC_SPC,  MO(_RAISE), KC_RCTL, KC_RALT, KC_RGUI
+  KC_LSFT,  KC_Y,   KC_X,    KC_C,    KC_V,    KC_B, KC_MUTE,      XXXXXXX,KC_N,    KC_M, KC_COMM,  KC_DOT, X(NDH),  KC_BSPC,
+                 KC_LGUI,LSFT(KC_QUOT),LSFT(KC_SLSH),MO(_LOWER), KC_ENT,        KC_SPC,  MO(_RAISE), KC_LCTL, KC_LALT, KC_LGUI
 ),
 /* LOWER
  * ,-----------------------------------------.                    ,-----------------------------------------.

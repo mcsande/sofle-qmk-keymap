@@ -4,6 +4,7 @@ enum sofle_layers {
     /* _M_XYZ = Mac Os, _W_XYZ = Win/Linux */
     _QWERTY,
     _DEAT,
+    _BONE,
     _LOWER,
     _RAISE,
     _ADJUST,
@@ -12,6 +13,7 @@ enum sofle_layers {
 enum custom_keycodes {
     KC_QWERTY = SAFE_RANGE,
     KC_DEAT,
+    KC_BONE,
     KC_PRVWD,
     KC_NXTWD,
     KC_LSTRT,
@@ -95,6 +97,29 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_LSFT,  KC_Y,   KC_X,    KC_C,    KC_V,    KC_B, KC_MUTE,      XXXXXXX,KC_N,    KC_M, KC_COMM,  KC_DOT, X(NDH),  KC_BSPC,
                  KC_LGUI,LSFT(KC_QUOT),LSFT(KC_SLSH),MO(_LOWER), KC_ENT,        KC_SPC,  MO(_RAISE), KC_LCTL, KC_LALT, KC_LGUI
 ),
+/*
+ * BONE
+ * ,-----------------------------------------.                    ,-----------------------------------------.
+ * |  `   |   "  |   /  |   ?  |   '  |   €  |                    |   6  |   7  |   8  |   9  |   0  |  –   |
+ * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
+ * | ESC  |   J  |   D  |   U  |   A  |   X  |                    |   P  |   H  |   L  |   M  |   W  |  ß   |
+ * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
+ * | C-9  |   C  |   T  |   I  |   E  |   O  |-------.    ,-------|   B  |   N  |   R  |   S  |   G  |  Q   |
+ * |------+------+------+------+------+------|  MUTE |    |       |------+------+------+------+------+------|
+ * |LShift|   F  |   V  |   Ü  |   Ä  |   Ö  |-------|    |-------|   Y  |   Z  |   ,  |   .  |   K  | Bspc |
+ * `-----------------------------------------/       /     \      \-----------------------------------------'
+ *            | LGUI |   "  |   ?  |LOWER | /Enter  /       \Space \  |RAISE | LCTR | LAlt | LGUI |
+ *            |      |      |      |      |/       /         \      \ |      |      |      |      |
+ *            `----------------------------------'           '------''---------------------------'
+ */
+
+[_BONE] = LAYOUT(
+  KC_GRV,   LSFT(KC_QUOT),   KC_SLSH,    LSFT(KC_SLSH),    KC_QUOT,    X(EUR),                      KC_6,    KC_7,    KC_8,    KC_9,    KC_0,  X(NDH),
+  KC_ESC,   KC_J,   KC_D,    KC_U,    KC_A,    KC_X,                      KC_P,    KC_H,    KC_L,    KC_M, KC_W,  X(SZ),
+  LCTL(KC_9),   KC_C,   KC_T,    KC_I,    KC_E,    KC_O,                      KC_B,    KC_N,    KC_R,    KC_S,    KC_G,  KC_Q,
+  KC_LSFT,  KC_F,   KC_V,    XP(UE, UEG),    XP(AE, AEG),    XP(OE, OEG), KC_MUTE,      XXXXXXX,KC_Y,    KC_Z, KC_COMM,  KC_DOT, KC_K,  KC_BSPC,
+                 KC_LGUI,LSFT(KC_QUOT),LSFT(KC_SLSH),MO(_LOWER), KC_ENT,        KC_SPC,  MO(_RAISE), KC_LCTL, KC_LALT, KC_LGUI
+),
 /* LOWER
  * ,-----------------------------------------.                    ,-----------------------------------------.
  * |      |  F1  |  F2  |  F3  |  F4  |  F5  |                    |  F6  |  F7  |  F8  |  F9  | F10  | F11  |
@@ -141,7 +166,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,-----------------------------------------.                    ,-----------------------------------------.
  * |      |      |      |      |      |      |                    |      |      |      |      |      |      |
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
- * |QK_BOOT|     |QWERTY| DEAT |      |      |                    | LINX | WINC |      |      |      |      |
+ * |QK_BOOT|     |QWERTY| DEAT | BONE |      |                    | LINX | WINC |      |      |      |      |
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
  * |      |      |MACWIN|      |      |      |-------.    ,-------|      | VOLDO| MUTE | VOLUP|      |      |
  * |------+------+------+------+------+------|  MUTE |    |       |------+------+------+------+------+------|
@@ -153,7 +178,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
   [_ADJUST] = LAYOUT(
   XXXXXXX , XXXXXXX,  XXXXXXX ,  XXXXXXX , XXXXXXX, XXXXXXX,                     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-  QK_BOOT  , XXXXXXX,KC_QWERTY,KC_DEAT,CG_TOGG,XXXXXXX,                     UC_LINX, UC_WINC, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+  QK_BOOT  , XXXXXXX,KC_QWERTY,KC_DEAT,KC_BONE,XXXXXXX,                     UC_LINX, UC_WINC, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
   XXXXXXX , XXXXXXX,CG_TOGG, XXXXXXX,    XXXXXXX,  XXXXXXX,                     XXXXXXX, KC_VOLD, KC_MUTE, KC_VOLU, XXXXXXX, XXXXXXX,
   XXXXXXX , XXXXXXX, XXXXXXX, XXXXXXX,    XXXXXXX,  XXXXXXX, XXXXXXX,     XXXXXXX, XXXXXXX, KC_MPRV, KC_MPLY, KC_MNXT, XXXXXXX, XXXXXXX,
                    _______, _______, _______, _______, _______,     _______, _______, _______, _______, _______
@@ -190,6 +215,9 @@ static void print_status_narrow(void) {
         case _DEAT:
             oled_write_ln_P(PSTR("Deat"), false);
             break;
+        case _BONE:
+            oled_write_ln_P(PSTR("Bone"), false);
+            break;
         default:
             oled_write_P(PSTR("Undef"), false);
     }
@@ -198,6 +226,7 @@ static void print_status_narrow(void) {
     oled_write_ln_P(PSTR("LAYER"), false);
     switch (get_highest_layer(layer_state)) {
         case _DEAT:
+        case _BONE:
         case _QWERTY:
             oled_write_P(PSTR("Base\n"), false);
             break;
@@ -250,6 +279,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case KC_DEAT:
             if (record->event.pressed) {
                 set_single_persistent_default_layer(_DEAT);
+            }
+            return false;
+        case KC_BONE:
+            if (record->event.pressed) {
+                set_single_persistent_default_layer(_BONE);
             }
             return false;
         case KC_PRVWD:

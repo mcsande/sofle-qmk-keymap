@@ -5,6 +5,7 @@ enum sofle_layers {
     _QWERTY,
     _DEAT,
     _BONE,
+    _BON,
     _LOWER,
     _RAISE,
     _ADJUST,
@@ -14,6 +15,7 @@ enum custom_keycodes {
     KC_QWERTY = SAFE_RANGE,
     KC_DEAT,
     KC_BONE,
+    KC_BON,
     KC_PRVWD,
     KC_NXTWD,
     KC_LSTRT,
@@ -46,8 +48,12 @@ const uint32_t unicode_map[] PROGMEM = {
 };
 
 const uint16_t PROGMEM test_combo1[] = {KC_J, KC_K, COMBO_END};
+const uint16_t PROGMEM test_combo2[] = {KC_D, KC_F, COMBO_END};
+const uint16_t PROGMEM test_combo3[] = {KC_K, KC_L, COMBO_END};
 combo_t key_combos[COMBO_COUNT] = {
     COMBO(test_combo1, KC_TAB),
+    COMBO(test_combo2, KC_ESC),
+    COMBO(test_combo3, KC_ENT),
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -69,10 +75,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [_QWERTY] = LAYOUT(
   KC_GRV,   KC_1,   KC_2,    KC_3,    KC_4,    KC_5,                     KC_6,    KC_7,    KC_8,    KC_9,    KC_0,  KC_GRV,
-  KC_ESC,   KC_Q,   KC_W,    KC_E,    KC_R,    KC_T,                     KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,  KC_BSPC,
-  KC_CAPS,   KC_A,   KC_S,    KC_D,    KC_F,    KC_G,                     KC_H,    KC_J,    KC_K,    KC_L, KC_SCLN,  KC_QUOT,
-  KC_LSFT,  KC_Z,   KC_X,    KC_C,    KC_V,    KC_B, KC_MUTE,     XXXXXXX,KC_N,    KC_M, KC_COMM,  KC_DOT, KC_SLSH,  KC_RSFT,
-                 KC_LGUI,KC_LALT,KC_LCTL, MO(_LOWER), KC_ENT,      KC_SPC,  MO(_RAISE), KC_RCTL, KC_RALT, KC_RGUI
+  KC_ESC,   KC_Q,   KC_W,    KC_E,    KC_R,    KC_T,                     KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,  KC_RSFT,
+  MO(_LOWER),   KC_A,   KC_S,    KC_D,    KC_F,    KC_G,                     KC_H,    KC_J,    KC_K,    KC_L, KC_SCLN,  KC_QUOT,
+  KC_LSFT,  KC_Z,   KC_X,    KC_C,    KC_V,    KC_B, KC_MUTE,     XXXXXXX,KC_N,    KC_M, KC_COMM,  KC_DOT, KC_SLSH,  KC_BSPC,
+                 KC_LGUI,KC_LALT,KC_LCTL, MO(_RAISE), KC_CAPS,      KC_SPC,  KC_ENT, KC_RCTL, KC_RALT, KC_RGUI
 ),
 /*
  * DEAT
@@ -91,11 +97,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 
 [_DEAT] = LAYOUT(
-  KC_GRV,   LSFT(KC_QUOT),   KC_SLSH,    LSFT(KC_SLSH),    KC_QUOT,    X(EUR),                      KC_6,    KC_7,    KC_8,    KC_9,    KC_0,  X(SZ),
+  KC_GRV,   KC_1,   KC_2,    KC_3,    KC_4,    KC_5,                      KC_6,    KC_7,    KC_8,    KC_9,    KC_0,  X(SZ),
   KC_ESC,   KC_Q,   KC_W,    KC_E,    KC_R,    KC_T,                      KC_Z,    KC_U,    KC_I,    KC_O, KC_P,  XP(UE, UEG),
-  LCTL(KC_9),   KC_A,   KC_S,    KC_D,    KC_F,    KC_G,                      KC_H,    KC_J,    KC_K,    KC_L,    XP(OE, OEG),  XP(AE, AEG),
+  MO(_LOWER),   KC_A,   KC_S,    KC_D,    KC_F,    KC_G,                      KC_H,    KC_J,    KC_K,    KC_L,    XP(OE, OEG),  XP(AE, AEG),
   KC_LSFT,  KC_Y,   KC_X,    KC_C,    KC_V,    KC_B, KC_MUTE,      XXXXXXX,KC_N,    KC_M, KC_COMM,  KC_DOT, X(NDH),  KC_BSPC,
-                 KC_LGUI,LSFT(KC_QUOT),LSFT(KC_SLSH),MO(_LOWER), KC_ENT,        KC_SPC,  MO(_RAISE), KC_LCTL, KC_LALT, KC_LGUI
+                 KC_LGUI,KC_LALT,KC_LCTL,MO(_RAISE), LCTL(KC_9),        KC_SPC,  KC_ENT, KC_RCTL, KC_RALT, KC_RGUI
 ),
 /*
  * BONE
@@ -114,11 +120,34 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 
 [_BONE] = LAYOUT(
-  KC_GRV,   LSFT(KC_QUOT),   KC_SLSH,    LSFT(KC_SLSH),    KC_QUOT,    X(EUR),                      KC_6,    KC_7,    KC_8,    KC_9,    KC_0,  X(NDH),
+  KC_GRV,   KC_1,   KC_2,    KC_3,    KC_4,    KC_5,                      KC_6,    KC_7,    KC_8,    KC_9,    KC_0,  X(NDH),
   KC_ESC,   KC_J,   KC_D,    KC_U,    KC_A,    KC_X,                      KC_P,    KC_H,    KC_L,    KC_M, KC_W,  X(SZ),
   LCTL(KC_9),   KC_C,   KC_T,    KC_I,    KC_E,    KC_O,                      KC_B,    KC_N,    KC_R,    KC_S,    KC_G,  KC_Q,
   KC_LSFT,  KC_F,   KC_V,    XP(UE, UEG),    XP(AE, AEG),    XP(OE, OEG), KC_MUTE,      XXXXXXX,KC_Y,    KC_Z, KC_COMM,  KC_DOT, KC_K,  KC_BSPC,
                  KC_LGUI,LSFT(KC_QUOT),LSFT(KC_SLSH),MO(_LOWER), KC_ENT,        KC_SPC,  MO(_RAISE), KC_LCTL, KC_LALT, KC_LGUI
+),
+/*
+ * BON
+ * ,-----------------------------------------.                    ,-----------------------------------------.
+ * |  `   |   1  |   2  |   3  |   4  |   5  |                    |   6  |   7  |   8  |   9  |   0  |  `   |
+ * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
+ * | ESC  |   Q  |   W  |   E  |   R  |   T  |                    |   Y  |   U  |   I  |   O  |   P  | Bspc |
+ * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
+ * | Tab  |   A  |   S  |   D  |   F  |   G  |-------.    ,-------|   H  |   J  |   K  |   L  |   ;  |  '   |
+ * |------+------+------+------+------+------|  MUTE |    |       |------+------+------+------+------+------|
+ * |LShift|   Z  |   X  |   C  |   V  |   B  |-------|    |-------|   N  |   M  |   ,  |   .  |   /  |RShift|
+ * `-----------------------------------------/       /     \      \-----------------------------------------'
+ *            | LGUI | LAlt | LCTR |LOWER | /Enter  /       \Space \  |RAISE | RCTR | RAlt | RGUI |
+ *            |      |      |      |      |/       /         \      \ |      |      |      |      |
+ *            `----------------------------------'           '------''---------------------------'
+ */
+
+[_BON] = LAYOUT(
+  KC_GRV,   KC_1,   KC_2,    KC_3,    KC_4,    KC_5,                     KC_6,    KC_7,    KC_8,    KC_9,    KC_0,  KC_MINS,
+  KC_RBRC,   KC_Q,   KC_W,    KC_E,    KC_R,    KC_T,                     KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,  KC_LBRC,
+  KC_CAPS,   KC_A,   KC_S,    KC_D,    KC_F,    KC_G,                     KC_H,    KC_J,    KC_K,    KC_L, KC_SCLN,  KC_QUOT,
+  KC_LSFT,  KC_Z,   KC_X,    KC_C,    KC_V,    KC_B, KC_MUTE,     XXXXXXX,KC_N,    KC_M, KC_COMM,  KC_DOT, KC_SLSH,  KC_BSPC,
+                 MO(_LOWER),KC_LALT,KC_LCTL, KC_NUBS, KC_ENT,      KC_SPC,  MO(_RAISE), KC_RCTL, KC_EQL, KC_LGUI
 ),
 /* LOWER
  * ,-----------------------------------------.                    ,-----------------------------------------.
@@ -136,9 +165,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [_LOWER] = LAYOUT(
   _______,   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,                       KC_F6,   KC_F7,   KC_F8,   KC_F9,  KC_F10,  KC_F11,
-  KC_GRV,    KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                       KC_6,    KC_7,    KC_8,    KC_9,    KC_0,  KC_F12,
-  _______, KC_EXLM,   KC_AT, KC_HASH,  KC_DLR, KC_PERC,                       KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_PIPE,
-  _______,  KC_EQL, KC_MINS, KC_PLUS, KC_LCBR, KC_RCBR, _______,       _______, KC_LBRC, KC_RBRC, KC_SCLN, KC_COLN, KC_BSLS, _______,
+  KC_GRV,    KC_1,    KC_UNDS,    KC_LBRC,    KC_RBRC,    KC_CIRC,                       KC_EXLM,    KC_LT,    KC_GT,    KC_EQL,    KC_AMPR,  KC_F12,
+  _______, KC_BSLS,   KC_SLSH, KC_LCBR,  KC_RCBR, KC_ASTR,                       KC_QUES, KC_LPRN, KC_RPRN, KC_MINS, KC_COLN, KC_AT,
+  _______,  KC_HASH, KC_DLR, KC_PIPE, KC_TILD, KC_GRV, _______,       _______, KC_PLUS, KC_PERC, KC_DQUO, KC_QUOT, KC_SCLN, _______,
                        _______, _______, _______, _______, _______,       _______, _______, _______, _______, _______
 ),
 /* RAISE
@@ -156,17 +185,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *            `----------------------------------'           '------''---------------------------'
  */
 [_RAISE] = LAYOUT(
-  _______, _______ , _______ , _______ , _______ , _______,                           _______,  _______  , _______,  _______ ,  _______ ,_______,
-  _______,  KC_INS,  KC_PSCR,   KC_APP,  XXXXXXX, XXXXXXX,                        KC_PGUP, KC_PRVWD,   KC_UP, KC_NXTWD,KC_DLINE, KC_BSPC,
-  _______, KC_LALT,  KC_LCTL,  KC_LSFT,  XXXXXXX, KC_TAB,                       KC_PGDN,  KC_LEFT, KC_DOWN, KC_RGHT,  KC_DEL, KC_BSPC,
-  _______,KC_UNDO, KC_CUT, KC_COPY, KC_PASTE, XXXXXXX,  _______,       _______,  XXXXXXX, KC_LSTRT, XXXXXXX, KC_LEND,   XXXXXXX, _______,
-                         _______, _______, _______, _______, _______,       _______, _______, _______, _______, _______
+  _______, _______ , _______ , _______ , _______ , _______,                           _______,  _______  , _______,  KC_PSLS,  KC_PAST,KC_PMNS,
+  _______,  KC_PGUP,  KC_BSPC,   KC_UP,  KC_DEL, KC_PGDN,                        _______, KC_7,   KC_8, KC_9,KC_PPLS, _______,
+  _______, KC_HOME,  KC_LEFT,  KC_DOWN,  KC_RGHT, KC_END,                       _______,  KC_4, KC_5, KC_6,  _______, _______,
+  _______,KC_ESC, KC_TAB, KC_INS, KC_ENT, XXXXXXX,  _______,       _______,  KC_COLN, KC_1, KC_2, KC_3,   KC_SCLN, _______,
+                         _______, _______, _______, _______, _______,       KC_0, _______, _______, _______, _______
 ),
 /* ADJUST
  * ,-----------------------------------------.                    ,-----------------------------------------.
  * |      |      |      |      |      |      |                    |      |      |      |      |      |      |
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
- * |QK_BOOT|     |QWERTY| DEAT | BONE |      |                    | LINX | WINC |      |      |      |      |
+ * |QK_BOOT|     |QWERTY| DEAT | BONE | BON  |                    | LINX | WINC |      |      |      |      |
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
  * |      |      |MACWIN|      |      |      |-------.    ,-------|      | VOLDO| MUTE | VOLUP|      |      |
  * |------+------+------+------+------+------|  MUTE |    |       |------+------+------+------+------+------|
@@ -178,7 +207,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
   [_ADJUST] = LAYOUT(
   XXXXXXX , XXXXXXX,  XXXXXXX ,  XXXXXXX , XXXXXXX, XXXXXXX,                     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-  QK_BOOT  , XXXXXXX,KC_QWERTY,KC_DEAT,KC_BONE,XXXXXXX,                     UC_LINX, UC_WINC, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+  QK_BOOT  , XXXXXXX,KC_QWERTY,KC_DEAT,KC_BONE,KC_BON,                     UC_LINX, UC_WINC, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
   XXXXXXX , XXXXXXX,CG_TOGG, XXXXXXX,    XXXXXXX,  XXXXXXX,                     XXXXXXX, KC_VOLD, KC_MUTE, KC_VOLU, XXXXXXX, XXXXXXX,
   XXXXXXX , XXXXXXX, XXXXXXX, XXXXXXX,    XXXXXXX,  XXXXXXX, XXXXXXX,     XXXXXXX, XXXXXXX, KC_MPRV, KC_MPLY, KC_MNXT, XXXXXXX, XXXXXXX,
                    _______, _______, _______, _______, _______,     _______, _______, _______, _______, _______
@@ -218,6 +247,9 @@ static void print_status_narrow(void) {
         case _BONE:
             oled_write_ln_P(PSTR("Bone"), false);
             break;
+        case _BON:
+            oled_write_ln_P(PSTR("Bon"), false);
+            break;
         default:
             oled_write_P(PSTR("Undef"), false);
     }
@@ -227,6 +259,7 @@ static void print_status_narrow(void) {
     switch (get_highest_layer(layer_state)) {
         case _DEAT:
         case _BONE:
+        case _BON:
         case _QWERTY:
             oled_write_P(PSTR("Base\n"), false);
             break;
@@ -284,6 +317,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case KC_BONE:
             if (record->event.pressed) {
                 set_single_persistent_default_layer(_BONE);
+            }
+            return false;
+        case KC_BON:
+            if (record->event.pressed) {
+                set_single_persistent_default_layer(_BON);
             }
             return false;
         case KC_PRVWD:
